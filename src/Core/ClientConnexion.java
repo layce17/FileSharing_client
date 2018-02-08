@@ -24,7 +24,6 @@ public class ClientConnexion {
 	
 	public TreeModel getServerTree() {
 		try {
-			System.out.println("Debut de la demande");
 			writer = new PrintWriter(con.getOutputStream(), true);
 			obj_reader = new ObjectInputStream(con.getInputStream());
 			
@@ -50,16 +49,17 @@ public class ClientConnexion {
 			writer.write(cmd);
 			writer.flush();
 			
-			System.out.println("Commande "+ cmd +" envoyé au serveur");
-			
 			String response = read();
-			System.out.println("Réponse reçue: "+ response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		if (msg.equals("QUIT"))
 			writer.close();
+	}
+	
+	public Socket getClient() {
+		return this.con;
 	}
 	
 	private String read() throws IOException{
